@@ -1,0 +1,67 @@
+body {
+    background-color: fff;
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.listheader {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: aquamarine;
+    color:teal !important;
+    padding: 10px 0px 10px 0px;
+}
+
+.listbody {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: gainsboro;   
+    padding: 5px 0px 5px 0px; 
+
+}
+
+.appfooter {
+    display: block;
+    flex-wrap: nowrap;
+    align-content: center;
+    background-color: aquamarine;
+    color:teal !important;
+    padding: 10px 0px 10px 0px;
+    height: 50px;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.appwidth {
+    width: 600px;
+}
+
+.category {
+    width: 5%;
+}
+
+.product-name {
+    width: 55%;
+}
+
+.price {
+    width: 10%;
+}
+
+.quantity {
+    width: 10%;
+}
+
+.total {
+    width: 10%;
+}
+
+.incart {
+    width: 10%;
+}
