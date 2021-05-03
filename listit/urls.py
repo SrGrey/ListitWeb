@@ -21,4 +21,5 @@ from listitapp.views import index
 urlpatterns = [
     path('listitapp/', include('listitapp.urls')),
     path('admin/', admin.site.urls),
+    path('', include('listitapp.urls')),
     ]
