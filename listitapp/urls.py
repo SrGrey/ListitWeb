@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import index, create_category
+from . import views #index, create_category, delete_category
 
 urlpatterns = [
-    path('', index),
-    path('create_category', create_category),
+    path('', views.index),
+    path('create_category', views.create_category),
+    path('delete_category/<str:pk>', views.delete_category),
 ]

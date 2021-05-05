@@ -30,7 +30,14 @@
             {% for item in categories %}
             <div class="row" style="background-color: aliceblue;">
                 <div class="listbody">
-                <div style="width: 50%;"><b>{{ item.name|capfirst }}</b></div>
+                <div style="width: 50%;"><b>{{ item.name|capfirst }}</b> 
+                    <a href="delete_category/{{ item.id }}">delete</a>
+                    <!--form id="delete_category" method="POST" action="/listitapp/delete_category">{% csrf_token %}
+                        <input type="submit" value="{{ item.name }}"  required name="delete">
+                        <!--button type="submit" required name="{{ item.name }}">delete</button-->
+                        
+                    <!--/form-->
+                </div>
                 <div style="width: 5%;" class="right">+</div>
                 <div style="width: 25%;"></div>
                 <div class="total right">0.00</div>
@@ -58,7 +65,7 @@
         <div class="row " style="width: 100%; display: flex;">    
             <div style="width: 30%;">
                 <form id="show_add_form" style="display: none;" method="POST" action="/listitapp/create_category">{% csrf_token %}
-                    <input type="text" value="write new category here"  required name="new_category">
+                    <input type="text" value=""  placeholder=" Add new category here" required name="new_category">
                     <button type="submit">add</button>
                     <button type="reset"  onclick="disp(document.getElementById('show_add_form'))">cancel</button>
                 </form>
