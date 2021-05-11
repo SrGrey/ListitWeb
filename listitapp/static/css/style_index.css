@@ -1,0 +1,150 @@
+.body {
+    font-family: Operator Mono SSm A,Operator Mono SSm B,Source Code Pro,Menlo,Consolas,Monaco,monospace;
+
+}
+
+html, body {
+    height: 100%;
+}
+
+.navbar {
+    background-color: #99CCCC;
+    width: 100%;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff !important;
+    background-color: teal !important;
+}
+
+.nav-link.parent-active {
+    color: teal !important;
+
+}
+
+
+
+.nav a {
+    color: white;
+}
+
+.nav a:hover {
+    color: #fff !important;
+    background-color: rgb(53, 168, 168) !important;
+}
+
+
+header {
+    text-align: center;
+    padding: 0px;
+    background-color: #99CCCC;
+
+}
+
+.b1 {
+
+    color: white; /* font color */
+    font-size: 10pt; /* font size */
+    border-color: rgb(211, 139, 5);
+    border-radius: 5px;
+    background: linear-gradient(to top, #e28b28, #ce7612 50%, #ebaa61 50%);
+    box-shadow: 1px 1px 2px black;
+    }
+
+
+.wrapper {
+    height: 100%;
+
+}
+
+.wrapper a:link {
+    text-decoration: none; /* take away underlining */
+    color: #555555;
+    border-bottom: 1px dashed #999999; /* underline */
+    font-weight: bold;
+}
+
+.wrapper a:visited {
+    color: #555555;
+}
+
+.wrapper  a:hover {
+    color: #000000;
+    border-bottom: .07em solid;
+}
+
+.wrapper  a:active {
+    color: #497DDD;
+    border-bottom: 1px dashed;
+}
+
+.content {
+    background-color: mintcream;
+    height: 100%;
+}
+
+.bg-white {
+    background-color:silver !important;
+}
+
+.small {
+    font-size: small;
+}
+
+.x-small {
+    font-size: x-small;
+}
+
+footer{
+    background-color: #99CCCC;
+    padding: 10px;
+}
+
+
+footer p{
+    color: #fff;
+}
+
+.row {
+    overflow: hidden !important;
+}
+
+
+.sidebar_container {
+    float: right;
+    width: 37%;
+    height: 700px;
+    padding: 5px;
+    margin: 10px 0 0 10px;
+    background-color: #fff;
+}
+
+.site-content {
+    width: 60%;
+    overflow: hidden;
+    margin: 10px 0 0 10px;
+}
+
+
+
+/* css mobile */
+
+@media only screeen
+and (min-device-width: 320px)
+and (max-device-width: 560px)
+
+
+.sidebar_container {
+    float: right;
+    width: 37%;
+    height: 700px;
+    padding: 5px;
+    margin: 10px 0 0 10px;
+    background-color: #fff;
+}
+
+.site-content {
+    width: 60%;
+    overflow: hidden;
+    margin: 10px 0 0 10px;
+}
