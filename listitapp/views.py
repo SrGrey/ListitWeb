@@ -3,29 +3,11 @@ from django.http import HttpResponseRedirect
 
 from .models import Products, Category
 
-### working code ###
-#def index(request):
-#    prods = Products.objects.order_by('category', 'product_status', 'product_name')
-#    categories = Category.objects.order_by('name')
-#    context = {
-#        'prods': prods,
-#        'categories': categories,
-##       'total_sum': product.price ,
-#    }
-#    return render(request, 'listitapp/index.html', context)
-### working code ###
 
-### changes ###
 
 def index(request):
-#    prods = Products.objects.order_by('category', 'product_status', 'product_name')
-#    categories = Category.objects.order_by('name')
-#    context = {
-#        'prods': prods,
-#        'categories': categories,
-# #       'total_sum': product.price ,
-#    }
-    return render(request, 'listitapp/index.html') #HttpResponseRedirect('listitapp/index.html')
+
+    return render(request, 'listitapp/index.html') 
 
 
 def shopping_list(request):
@@ -38,7 +20,7 @@ def shopping_list(request):
     }
     return render(request, 'listitapp/shopping_list.html', context)
 
-### changes ###
+
 
 
 def create_category(request):
