@@ -28,20 +28,22 @@
         <div class="row">
 
             {% for item in categories %}
+            {% if item.is_published %}
             <div class="row" style="background-color: aliceblue;">
                 <div class="listbody">
-                <div style="width: 50%;"><b>{{ item.name|capfirst }}</b> 
-                    <a href="delete_category/{{ item.id }}">delete</a>
+                <div style="width: 50%; background-color: lavender;"><b>{{ item.name|capfirst }}</b> 
+                    <!--a href="delete_category/{{ item.id }}">delete</a-->
+                    <span style="float: right;"><a href="hide_category/{{ item.id }}">hide</a></span>
                     <!--form id="delete_category" method="POST" action="/listitapp/delete_category">{% csrf_token %}
                         <input type="submit" value="{{ item.name }}"  required name="delete">
                         <!--button type="submit" required name="{{ item.name }}">delete</button-->
                         
                     <!--/form-->
                 </div>
-                <div style="width: 5%;" class="right">+</div>
-                <div style="width: 25%;"></div>
-                <div class="total right">0.00</div>
-                <div class="incart center">False</div>
+                <div style="width: 5%; background-color: lavender;" class="right">+</div>
+                <div style="width: 25%; background-color: lavender;"></div>
+                <div class="total right" style="background-color: lavender;">0.00</div>
+                <div class="incart center" style="background-color: lavender;">False</div>
                 </div>
                 {% for product in prods %} 
                 {% if item.name|stringformat:"s" == product.category|stringformat:"s" %} 
@@ -57,6 +59,7 @@
                 {% endfor %}
            
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

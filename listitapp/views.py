@@ -35,3 +35,10 @@ def delete_category(request, pk):
     category_to_delete = Category.objects.get(id=pk)
     category_to_delete.delete()
     return HttpResponseRedirect('/listitapp/shopping_list')
+
+
+def hide_category(request, pk):
+    category_to_hide = Category.objects.get(id=pk)
+    category_to_hide.is_published = False
+    category_to_hide.save()
+    return HttpResponseRedirect('/listitapp/shopping_list')

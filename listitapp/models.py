@@ -34,6 +34,9 @@ class Category(models.Model):
     name = models.CharField(max_length=20,
                             verbose_name='Category')
 
+    is_published = models.BooleanField(default=True,
+                            verbose_name='Show')
+
 #    products = models.ForeignKey('Products', null=True,  db_index=True,
 #                                on_delete=models.CASCADE, verbose_name='Products') )
 
@@ -43,4 +46,4 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
         verbose_name = 'Category'
-        ordering = ['name']
+        ordering = ['name', 'is_published']
