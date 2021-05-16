@@ -49,6 +49,13 @@ def modify_product(request, pk):
 #       new_product.product_name = request.POST['new_product']
 #       new_product.save()
     return  HttpResponseRedirect('/shopping_list')
+
+
+def modify_product_status(request, pk):
+    product = Products.objects.get(id=pk)
+    product.product_status = not product.product_status
+    product.save()
+    return HttpResponseRedirect('/shopping_list')
     
 
 def delete_category(request, pk):

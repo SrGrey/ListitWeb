@@ -102,7 +102,9 @@
                             <div class="price right">{{ product.price }}</div>   
                             <div class="quantity right">{{ product.quantity }}</div>
                             <div class="total right">{{ product.total_cost }}</div>
-                            <div class="incart center">{{ product.product_status }}</div> 
+                            <div class="incart center"><a href="modify_product_status/{{ product.id }}">{% if product.product_status == True %}<img src="/static/admin/img/icon-yes.svg" alt="True">
+                            {% else %}<img src="/static/admin/img/icon-no.svg" alt="False">{% endif %}</a>
+                            </div> 
                                          
                         
                     </div>                     
