@@ -43,7 +43,7 @@ body {
 }
 
 .appwidth {
-    width: 600px;
+    min-width: 450px;
 }
 
 .category {

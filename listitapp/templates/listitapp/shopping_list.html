@@ -32,7 +32,7 @@
                 
                 <div class="category" title="Category">Cat</div>
                 <div class="product-name" style="background-color: #7fffD4; width: 50%;">Product name</div>
-                <div style="width: 5%;" >*/-</div>
+                <div style="width: 5%;" >+/-</div>
                 <div class="price right">Price</div>
                 <div class="quantity right">Quantity</div>
                 <div class="total right">Total</div>
@@ -61,7 +61,7 @@
 
 
 <!-- popup1 window  -->
-<a href="javascript:PopUpShow({{ item.id }})">+product</a>
+<a href="javascript:PopUpShow({{ item.id }})" style="color:rgb(52, 180, 58); text-decoration: none; padding-right: 20px;"><b>+product</b></a>
 <!--div class="b-container">
     add product
     <a href="javascript:PopUpShow()">+</a>
@@ -95,7 +95,9 @@
                         
                             <div class="category"></div>
                             <div class="product-name">{{ product.product_name }}
-                                <span style="float: right;"><a href="delete_product/{{ product.id }}">delete</a></span>
+                                <span><a href="modify_product/{{ product.id }}" style="color: orange; text-decoration: none; padding-right: 20px;">
+                                    <img src="static/img/modify.svg" height="15px" width="15px"></a></span>
+                                <span style="float: right;"><a href="delete_product/{{ product.id }}" style="color: red; text-decoration: none; padding-right: 20px;"><b>x</b></a></span>
                             </div>
                             <div class="price right">{{ product.price }}</div>   
                             <div class="quantity right">{{ product.quantity }}</div>
