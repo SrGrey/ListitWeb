@@ -5,16 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- popup1 script -->
+    <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        PopUpHide();
+    });
+    function PopUpShow(category_index){
+        $("#popup"+category_index).show();
+    }
+    function PopUpHide(category_index){
+        $("#popup"+category_index).hide();
+    }
+    </script>
+    <!-- popup1 script -->
+
+
     <title>ListIt</title>
 </head>
 <body>
-    <div class="container appwidth">   
+    <div class="appwidth">   
         <div class="row"> 
             <div class="listheader container appwidth center">
 
                 
                 <div class="category" title="Category">Cat</div>
-                <div class="product-name">Product name</div>
+                <div class="product-name" style="background-color: #7fffD4; width: 50%;">Product name</div>
+                <div style="width: 5%;" >*/-</div>
                 <div class="price right">Price</div>
                 <div class="quantity right">Quantity</div>
                 <div class="total right">Total</div>
@@ -24,36 +42,67 @@
         </div>
     </div>
 
-    <div class="container appwidth "> 
+    <div class="appwidth "> 
         <div class="row">
-
+            
+            
             {% for item in categories %}
             {% if item.is_published %}
-            <div class="row" style="background-color: aliceblue;">
+            <div class="row">
                 <div class="listbody">
-                <div style="width: 50%; background-color: lavender;"><b>{{ item.name|capfirst }}</b> 
-                    <!--a href="delete_category/{{ item.id }}">delete</a-->
-                    <span style="float: right;"><a href="hide_category/{{ item.id }}">hide</a></span>
-                    <!--form id="delete_category" method="POST" action="/listitapp/delete_category">{% csrf_token %}
-                        <input type="submit" value="{{ item.name }}"  required name="delete">
-                        <!--button type="submit" required name="{{ item.name }}">delete</button-->
-                        
-                    <!--/form-->
+                
+                    <div style="width: 50%; "><b>{{ item.name|capfirst }}</b>
+                        <!--a href="delete_category/{{ item.id }}">delete</a-->
+                        <span ><a href="hide_category/{{ item.id }}">hide</a></span>
+                    </div>
+                    <div style="width: 5%;" >
+                    
+
+
+
+<!-- popup2 window  -->
+<a href="javascript:PopUpShow({{ item.id }})">+product</a>
+<!--div class="b-container">
+    add product
+    <a href="javascript:PopUpShow()">+</a>
+</div-->
+<div class="b-popup" id="popup{{ item.id }}"  style="display: none;">
+    <div class="b-popup-content">
+
+     <form id="create_product" method="POST" action="/listitapp/create_product/{{ item.id }}">{% csrf_token %}
+        <p>Add new product to "{{ item.name|capfirst }}"
+         <input type="text" value=""  placeholder=" Add new product here" required name="new_product">
+         <button type="submit">add</button>
+         <button type="reset" onclick="javascript:PopUpHide('{{ item.id }}')">cancel</button>
+        </p>
+     </form>  
+
+    </div>
+</div>
+<!--  popup2 window    -->
+
+                   
+                    </div>
+                    <div style="width: 25%;"></div>
+                    <div class="total right">0.00</div>
+                    <div class="incart center">False</div>
+                
                 </div>
-                <div style="width: 5%; background-color: lavender;" class="right">+</div>
-                <div style="width: 25%; background-color: lavender;"></div>
-                <div class="total right" style="background-color: lavender;">0.00</div>
-                <div class="incart center" style="background-color: lavender;">False</div>
-                </div>
+                
                 {% for product in prods %} 
                 {% if item.name|stringformat:"s" == product.category|stringformat:"s" %} 
-                    <div class="row listbody">
-                        <div class="category"></div>
-                        <div class="product-name">{{ product.product_name }}</div>
-                        <div class="price right">{{ product.price }}</div>   
-                        <div class="quantity right">{{ product.quantity }}</div>
-                        <div class="total right">{{ product.total_cost }}</div>
-                        <div class="incart center">{{ product.product_status }}</div>                
+                    <div class="row listbody" style="background-color: lightgrey">
+                        
+                            <div class="category"></div>
+                            <div class="product-name">{{ product.product_name }}
+                                <span style="float: right;"><a href="delete_product/{{ product.id }}">delete</a></span>
+                            </div>
+                            <div class="price right">{{ product.price }}</div>   
+                            <div class="quantity right">{{ product.quantity }}</div>
+                            <div class="total right">{{ product.total_cost }}</div>
+                            <div class="incart center">{{ product.product_status }}</div> 
+                                         
+                        
                     </div>                     
                 {% endif %}
                 {% endfor %}
@@ -61,10 +110,11 @@
             </div>
             {% endif %}
             {% endfor %}
+            </details>
         </div>
     </div>
 
-    <div class="container appwidth appfooter">
+    <div class="appwidth appfooter">
         <div class="row " style="width: 100%; display: flex;">    
             <div style="width: 30%;">
                 <form id="show_add_form" style="display: none;" method="POST" action="/listitapp/create_category">{% csrf_token %}
@@ -100,6 +150,10 @@
         }
     
     </script>
+
+
+
+
 
 
 </body>

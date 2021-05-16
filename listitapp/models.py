@@ -5,13 +5,13 @@ class Products(models.Model):
 
     
 
-    product_name = models.CharField(max_length=25,  db_index=True, 
+    product_name = models.CharField(max_length=25,  db_index=True,  default='new product',
                                     verbose_name='Product')
     price = models.FloatField(null=True, blank=True, default=0.0, verbose_name='Price')
     quantity = models.FloatField(null=True, blank=True, default=0,
                                     verbose_name='Quantity')
     total_price = models.FloatField(null=True, blank=True, default=0.0, verbose_name='Total')
-    product_status = models.BooleanField(null=True, blank=True, 
+    product_status = models.BooleanField(null=True, blank=True,  default=False,
                                     verbose_name='In cart')
     category = models.ForeignKey('Category', null=True,
                                  on_delete=models.CASCADE, verbose_name='Category') #on_delete=models.PROTECT - if we want prohib cascade deleting

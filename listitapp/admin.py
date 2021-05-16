@@ -10,7 +10,7 @@ class ProductsAdmin(admin.ModelAdmin):
     search_fields = ('product_name', 'product_status')
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_published')
+    list_display = ('name', 'is_published', 'id')
     list_display_links = ('name', 'is_published')
 
 admin.site.register(Products, ProductsAdmin)
