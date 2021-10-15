@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <div class="wrapper">
+ 
+    <div class="container content">
+      <div class="row">
+
+        <div class="site-content">
+            <h1>Shopping list</h1>
+            <p></p>
+            <h3>App description</h3>
+            <p>Shopping list help you organize your shopping process </p>
+        </div>
+
+        <div class="sidebar_container">
+
+            <!--p><b>Sign in</b></p>
+            <p></p>
+                <form action="/shopping_list" method="post">{% csrf_token %}
+                    <p><input type="text" placeholder="username/e-mail" name="username"></p>
+                    <p><input type="password" placeholder="password" name="password"></p>
+                    <p><button type="submit">log in</button></p>
+                </form>
+            </p>
+            <p>autorization is under construction, you may try the public list <a href="/shopping_list"> here</a></p-->
+            <p>        {% if user.is_authenticated %}
+                <p>Hello, {{ user }}! </p>
+            Now you can access you personal <a href = "shopping_list">shopping list<br></a>
+                or <a href="/accounts/logout">Sign out</a>
+
+        {% else %}
+                You are not autorized, for access to personal shopping list <a href="/accounts/login"> sign up/sign in</a>
+        {% endif %}</p>
+        </div>  
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+
+      <div class="container">
+          <p class="text-center"> Copyright &copy;SrGrey</p>
+          <p class="text-center">2021</p>
+      </div>
+
+  </footer>
+
+{% endblock %}

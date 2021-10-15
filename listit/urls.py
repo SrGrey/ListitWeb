@@ -16,10 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from listitapp.views import index
+from listitapp.views import *
 
 urlpatterns = [
     path('listitapp/', include('listitapp.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('', include('listitapp.urls')),
     ]
+
+#handler404 = pageNotFound

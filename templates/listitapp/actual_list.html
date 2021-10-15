@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- popup1 script -->
+    <script src="https://code.jquery.com/jquery-2.0.2.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        PopUpHide();
+    });
+    function PopUpShow(category_index){
+        $("#popup"+category_index).show();
+    }
+    function PopUpHide(category_index){
+        $("#popup"+category_index).hide();
+    }
+    </script>
+    <!-- popup1 script -->
+
+    <!--calc script -->
+<script type="text/javascript">
+
+$("#input2,#input1").keyup(function calc() {
+
+    $('#output').val($('#input1').val() * $('#input2').val());
+
+});
+</script>
+    <!--calc script -->
+
+
+    <title>ListIt</title>
+</head>
+<body>
+    <div class="appwidth">
+        <div class="row">
+            {% if user.is_authenticated %}
+            <div class="row" style="display: flex; justify-content: space-between">
+                <div ><b>List of {{ request.user }} </b></div>
+                <div>
+                <b><a href = "shopping_list">Modify you list</a></b>
+                </div>
+                <div class="right"> <a href="accounts/logout"><b>logout</b></a></div>
+            </div>
+            {% else %}
+            <a href="/login">not worked, login</a>
+            {% endif %}
+            <!--div>
+                {% for item in categories %}
+                <p>{{ item.name|capfirst }}</p>
+                {% endfor %}
+            </div-->
+            <div class="listheader container appwidth center">
+                
+
+                
+                <div class="category" title="Category">Cat</div>
+                <div class="product-name" style="background-color: #7fffD4; ">Product name</div>
+                <div style="width: 5%;" >+/-</div>
+                <div class="price right">Price</div>
+                <div class="quantity right">Units/packs</div>
+                <div class="total right">Total</div>
+                <div class="incart center">In cart</div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="appwidth "> 
+        <div class="row">
+            {% for item in categories %}
+            {% if item.is_published %}
+            <div class="row">
+                <div class="listbody">
+                    <div class="center" style="width: 25px"><a style="decoration: none" href="hide_category/{{ item.id }}">{% if item.is_published == True %}<img src="static/img/visible.png" height="15px" width="15px" title="hide" alt="in list">
+                        {% else %}<img src="static/img/novisible.png" height="15px" width="15px"alt="not in list"> {% endif %}</a>
+                    </div>
+                    <div style="width: 50%; "><b>{{ item.name|capfirst }}</b>
+                    </div>
+                    <div style="width: 5%;" >
+                        <!-- popup1 window start -->
+                        <a href="javascript:PopUpShow({{ item.id }})" style="color:rgb(52, 180, 58); text-decoration: none; padding-right: 20px;">
+                            <button style="color:rgb(52, 180, 58); text-decoration: none; border: 2px solid #4CAF50; border-radius: 8px; "><b>+product</b></button></a>
+                        <div class="b-popup" id="popup{{ item.id }}"  style="display: none;">
+                            <div class="b-popup-content">
+                                <form id="create_product" method="POST" action="/listitapp/create_product/{{ item.id }}">{% csrf_token %}
+                                <p>Add new product to "{{ item.name|capfirst }}"
+                                    <input type="text" value=""  placeholder=" Add new product here" required name="new_product">
+                                    <button type="submit">add</button>
+                                    <button type="reset" onclick="javascript:PopUpHide('{{ item.id }}')">cancel</button>
+                                </p>
+                                </form>
+                            </div>
+                        </div>
+                        <!--  popup1 window end -->
+                    </div>
+                    <div style="width: 25%;"></div>
+                    <div class="total right"></div>
+                    <div class="incart center"> </div>
+                </div>
+                
+                {% for product in prods %} 
+                {% if item.name|stringformat:"s" == product.category|stringformat:"s" %} 
+                    <div class="row listbody" style="background-color: lightgrey">
+                            <div class="category"></div>
+                            <div class="product-name">{{ product.product_name }}
+                                <!--span><a href="modify_product/{{ product.id }}" style="color: orange; text-decoration: none; padding-right: 20px;">
+                                    <img src="static/img/modify.svg" height="15px" width="15px"></a></span-->
+                                <span style="float: right;"><a href="delete_product/{{ product.id }}" style="color: red; text-decoration: none; padding-right: 20px;"><b>x</b></a></span>
+                            </div>
+
+                            <div class="price right"><input type="text" name="{{ product.product_name }}1"
+                                   id="{{ product.id }}f"  value="{{ product.price }}" maxlength="6"  style="width: 45px;">
+                            </div>
+                            <div class="quantity right"><input type="text" name="{{ product.product_name }}2"
+                                   id="{{ product.id }}s" value="{{ product.quantity }}"  maxlength="6"  style="width: 45px;">
+                            </div>
+                            <div class="total right">
+                                <input type="text" name="{{ product.product_name }}output" id="{{ product.id }}output" value="{{ product.total_cost }}"  style="width: 45px;">
+                                <script>
+                                $("#{{ product.id }}f,#{{ product.id }}s").keyup(function ()
+                                {
+
+                                    $('#{{ product.id }}output').val(($('#{{ product.id }}f').val() * $('#{{ product.id }}s').val()).toFixed(2));
+                                });
+                                </script>
+                            </div>
+
+                            <div class="incart center"><a href="modify_product_status/{{ product.id }}">{% if product.product_status == True %}<img src="/static/admin/img/icon-yes.svg" alt="True">
+                            {% else %}<img src="/static/admin/img/icon-no.svg" alt="False">{% endif %}</a>
+                            </div>
+                    </div>                     
+                {% endif %}
+                {% endfor %}
+           
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="appwidth appfooter">
+        <div class="row " style="width: 100%; display: flex;">    
+            <div style="width: 30%;">
+                <form id="show_add_form" style="display: none;" method="POST" action="/listitapp/create_category">{% csrf_token %}
+                    <input type="text" value=""  placeholder=" Add new category here" required name="new_category">
+                    <button type="submit">add</button>
+                    <button type="reset"  onclick="disp(document.getElementById('show_add_form'))">cancel</button>
+                </form>
+                <input id="add_button" type="button" value="Add category" onclick="disp(document.getElementById('show_add_form'))"  style="display: block;">
+            </div>
+            <div style="width: 40%;">freespace</div>
+            <div style="width: 30%; text-align: center;">total cost: 00.00</div>
+        </div>
+        <div class="row center" >lacks N products from the list</div>
+    </div>
+
+
+
+
+
+
+    <script>
+        function disp(form) {
+            if (form.style.display == "none") {
+                form.style.display = "block"; hide_add_button(document.getElementById('add_button'))
+            } else {
+                form.style.display = "none"; hide_add_button(document.getElementById('add_button'))
+            }
+        }
+        
+        function hide_add_button(input) {
+            if (input.style.display == "none") {
+                input.style.display = "block"; 
+            } else {
+                input.style.display = "none";
+            }
+        }
+    
+    </script>
+
+
+
+
+
+
+</body>
+</html>
