@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, Http404
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, Http404, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Products, Category
 
@@ -22,7 +23,8 @@ def shopping_list(request):
 
 
 def actual_list(request):
-    prods = Products.objects.order_by('category', 'product_status', 'product_name').filter(user=request.user)
+    prods = Products.objects.order_by('category', 'product_status', 'product_name').filter(user=request.user).filter(
+        is_published=True)
     users_categories = Category.objects.order_by('name').filter(user=request.user)
     categories = users_categories
     context = {
@@ -42,7 +44,7 @@ def create_category(request):
 
 
 def create_product(request, pk):
-    if request.method == "POST":    
+    if request.method == "POST":
         category = Category.objects.get(id=pk)
         new_product = Products()
         new_product.category = category
@@ -53,13 +55,32 @@ def create_product(request, pk):
 
 
 def modify_product(request, pk):
-#    if request.method == "POST":    
-#       category = Category.objects.get(id=pk)
-#       new_product = Products()
-#       new_product.category = category
-#       new_product.product_name = request.POST['new_product']
-#       new_product.save()
-    return  HttpResponseRedirect('/shopping_list')
+    #    if request.method == "POST":
+    #       category = Category.objects.get(id=pk)
+    #       new_product = Products()
+    #       new_product.category = category
+    #       new_product.product_name = request.POST['new_product']
+    #       new_product.save()
+    return HttpResponseRedirect('/shopping_list')
+
+
+###AJAX POST price/cuantity/total QUERY
+@csrf_exempt
+def calculate_total(request, pk):
+    if request.method == "POST" and request.is_ajax():
+        request_price = float(request.POST.get('price', None))
+        request_quantity = float(request.POST.get('quantity', None))
+        product = Products.objects.get(id=pk)
+        product.price = request_price
+        product.quantity = request_quantity
+        product.save()
+        print(product.total_cost)
+        context = {
+            'price': product.price,
+            'quantity': product.quantity,
+            'total_cost': product.total_cost
+        }
+    return JsonResponse(context)
 
 
 def modify_product_status(request, pk):
@@ -67,7 +88,7 @@ def modify_product_status(request, pk):
     product.product_status = not product.product_status
     product.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    
+
 
 def delete_category(request, pk):
     category_to_delete = Category.objects.get(id=pk)
@@ -89,6 +110,20 @@ def show_category(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+def hide_product(request, pk):
+    product_to_hide = Products.objects.get(id=pk)
+    product_to_hide.is_published = False
+    product_to_hide.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def show_product(request, pk):
+    product_to_hide = Products.objects.get(id=pk)
+    product_to_hide.is_published = not product_to_hide.is_published
+    product_to_hide.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 def delete_product(request, pk):
     product_to_delete = Products.objects.get(id=pk)
     product_to_delete.delete()
@@ -99,7 +134,7 @@ def delete_product(request, pk):
 #     return HttpResponseNotFound('<h1>Page not found</h1><a href="/">main page</a>')
 
 def login_form(request):
-    return render(request, 'listitapp/login.html')  #accounts/login.html
+    return render(request, 'listitapp/login.html')  # accounts/login.html
 
 
 def add_default_categories(request):

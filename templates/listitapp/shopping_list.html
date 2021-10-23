@@ -36,23 +36,29 @@ $("#input2,#input1").keyup(function calc() {
     <title>ListIt</title>
 </head>
 <body>
-    <div class="appwidth">
+    <div class="appwidth" style="max-width: 650px">
         <div class="row">
             {% if user.is_authenticated %}
-            <div class="row" style="display: flex; justify-content: space-between">
-                <div ><b>Hi, {{ request.user }}! </b></div>
+            <div class="row font-125" style="display: flex; justify-content: space-between">
+                <div><b>Hi, {{ request.user }}! </b></div>
                 <div class="right"> <a href="accounts/logout"><b>logout</b></a></div>
             </div>
-            <div>
-                <p>It's you list of <b>all</b> categories and products.<br>
-                    You can add/delete <i>your</i> categories and products here, <br>
-                    and include its in actual list clicking on <img src="static/img/novisible.png" height="15px" width="15px"alt="not in list"> icon</p>
-
-                if you want add default categories in you list, please click here
+            <div style="color: seagreen; font: seagreen" class="font-125">
+                <span>It´s the list of ALL categories and products<br>
+                    - add/delete your personal categories and products here <br>
+                    - include its in actual list clicking on <img src="static/img/novisible.png" height="15px" width="15px"alt="not in list"> icon<br>
+                    <span class="font-100"><i>We have prepared some default categories for you, <br>
+                        add/restore them to your list, clicking the button</i></span>
                     <form method="POST" action="/add_default_categories">{% csrf_token %}
-                    <button type="submit">add</button>
+                    <button type="submit">+ restore default categories +</button>
                     </form>
-                <p><a href = "actual_list"><b>go to actual list</b><br></a>
+                </p>
+
+                <p><a href = "actual_list">
+                    <button style="color: white;text-decoration: none;border: 2px solid darkseagreen; border-radius: 4px; background: repeating-linear-gradient(
+55deg, darkseagreen, transparent 100px);"><b>OPEN ACTUAL LIST</b>
+                    </button>
+                    </a><br></p>
             </div>
             {% else %}
             <a href="/login">not worked, login</a>
@@ -62,7 +68,7 @@ $("#input2,#input1").keyup(function calc() {
 
 
                 <div class="incart center">Showed in list</div>
-                <div class="category" title="Category">Cat</div>
+                <div class="category" title="Category"></div>
                 <div class="product-name" style="background-color: #7fffD4; width: 50%;">Product name</div>
                 <div style="width: 5%;" >+/-</div><div style="width: 5%;" > </div>
                 <!--div class="price right">Price</div>
@@ -85,91 +91,57 @@ $("#input2,#input1").keyup(function calc() {
                     <div class="incart center"><a href="show_category/{{ item.id }}">{% if item.is_published == True %}<img src="static/img/visible.png" height="15px" width="15px"alt="in list">
                         {% else %}<img src="static/img/novisible.png" height="15px" width="15px"alt="not in list"> {% endif %}</a>
                     </div>
-                    <div style="width: 40%; ">
+                    <div style="width: 50%; " class = "font-150 font-list-content category-color-mainlist">
                         {% if item.user.id != 7 %}
-                        <b>{{ item.name|capfirst }}</b>
-                        <a href="delete_category/{{ item.id }}"> <img src="static/img/cancel.png" height="15px" width="15px" align="center" title="delete category" alt="delete category"></a>
+                        {{ item.name|capfirst }}<b></b>
+                            <span><a href="delete_category/{{ item.id }}" style="color: darkred; text-decoration: none; padding-left: 20px;"><b>x</b></a></span>
                         {% else %}
-                        <span style="color: #3f3f3f"><b>{{ item.name|capfirst }}</b></span><span style="color: #aaaaaa"><b> -- </b></span>
-                        <!--img src="static/img/lock.png" height="15px" width="15px"alt="default category"-->
+                            <span style="color: #3f3f3f; "><b>{{ item.name|capfirst }}</b></span><span style="color: #aaaaaa"><b> -- </b></span>
                         {% endif %}
-                        <!--span ><a href="show_category/{{ item.id }}">show</a></span-->
-                        <!--span ><a href="hide_category/{{ item.id }}">hide</a></span-->
                     </div>
                     <div style="width: 20%;" >
+                        <!-- popup1 window  -->
+                        <a href="javascript:PopUpShow({{ item.id }})" style="color:rgb(52, 180, 58); text-decoration: none; padding-right: 20px;"><button class="green-button" "><b>+product</b></button></a>
+                        <div class="b-popup" id="popup{{ item.id }}"  style="display: none;">
+                            <div class="b-popup-content">
 
+                             <form id="create_product" method="POST" action="/listitapp/create_product/{{ item.id }}">{% csrf_token %}
+                                <p>Add new product to "{{ item.name|capfirst }}"
+                                 <input type="text" value=""  placeholder=" Add new product here" required name="new_product">
+                                 <button type="submit">add</button>
+                                 <button type="reset" onclick="javascript:PopUpHide('{{ item.id }}')">cancel</button>
+                                </p>
+                             </form>
 
-
-
-<!-- popup1 window  -->
-<a href="javascript:PopUpShow({{ item.id }})" style="color:rgb(52, 180, 58); text-decoration: none; padding-right: 20px;"><button style="color:rgb(52, 180, 58); text-decoration: none; border: 2px solid #4CAF50; border-radius: 8px; "><b>+product</b></button></a>
-<!--div class="b-container">
-    add product
-    <a href="javascript:PopUpShow()">+</a>
-</div-->
-<div class="b-popup" id="popup{{ item.id }}"  style="display: none;">
-    <div class="b-popup-content">
-
-     <form id="create_product" method="POST" action="/listitapp/create_product/{{ item.id }}">{% csrf_token %}
-        <p>Add new product to "{{ item.name|capfirst }}"
-         <input type="text" value=""  placeholder=" Add new product here" required name="new_product">
-         <button type="submit">add</button>
-         <button type="reset" onclick="javascript:PopUpHide('{{ item.id }}')">cancel</button>
-        </p>
-     </form>
-
-    </div>
-</div>
-<!--  popup1 window    -->
-
-
+                            </div>
+                        </div>
+                        <!--  popup1 window    -->
                     </div>
-
                     <div class="total right"></div>
-
-
-                </div>
+                 </div>
 
                 {% for product in prods %}
                 {% if item.name|stringformat:"s" == product.category|stringformat:"s" %}
                     <div class="row listbody" style="background-color: lightgrey">
-                            <div style="width: 10%;" > </div>
+                            <div  style="width: 10%;  padding: 0 0 0 5px;" ><a href="show_product/{{ product.id }}">{% if product.is_published == True %}<img src="static/img/visible.png" height="15px" width="15px"alt="in list">
+                        {% else %}<img src="static/img/novisible.png" height="15px" width="15px"alt="not in list"> {% endif %}</a>
+                            </div>
                             <div class="category"></div>
-                            <div class="product-name">{{ product.product_name }}
+                            <div class="product-name font-140 font-list-content product-color-mainlist">{{ product.product_name }}
                                 <!--span><a href="modify_product/{{ product.id }}" style="color: orange; text-decoration: none; padding-right: 20px;">
                                     <img src="static/img/modify.svg" height="15px" width="15px"></a></span-->
                                 <span style="float: right;"><a href="delete_product/{{ product.id }}" style="color: red; text-decoration: none; padding-right: 20px;"><b>x</b></a></span>
                             </div>
-                            <!--div class="price right"><input type="text" name="{{ product.product_name }}1"
-                                   id="{{ product.product_name }}1"  value="{{ product.price }}" maxlength="6"  style="width: 45px;">
-                            </div>
-                            <div class="quantity right"><input type="text" name="{{ product.product_name }}2" id="{{ product.product_name }}2" value="{{ product.quantity }}"  maxlength="6"  style="width: 45px;">
-                            </div>
-                            <div class="total right"><input type="text" name="{{ product.product_name }}output" id="{{ product.product_name }}output" value="{{ product.total_cost }}"  style="width: 45px;">
-                                <script type="text/javascript">
-                                $("#{{ product.product_name }}2,#{{ product.product_name }}1").keyup(function ()
-                                {
-                                    var pricetoadd = $('#{{ product.product_name }}1').val();
-                                    $('#{{ product.product_name }}output').val(($('#{{ product.product_name }}1').val() * $('#{{ product.product_name }}2').val()).toFixed(2));
-                                });
-                                </script></div-->
-                            <!--div class="incart center"><a href="modify_product_status/{{ product.id }}">{% if product.product_status == True %}<img src="/static/admin/img/icon-yes.svg" alt="True">
-                            {% else %}<img src="/static/admin/img/icon-no.svg" alt="False">{% endif %}</a>
-                            </div-->
-
-
                     </div>
                 {% endif %}
                 {% endfor %}
-
             </div>
-
             {% endfor %}
 
         </div>
     </div>
 
-    <div class="appwidth appfooter">
+    <div class="appwidth appfooter" style="max-width: 650px">
         <div class="row " style="width: 100%; display: flex;">
             <div style="width: 30%;">
                 <form id="show_add_form" style="display: none;" method="POST" action="/listitapp/create_category">{% csrf_token %}
@@ -183,7 +155,7 @@ $("#input2,#input1").keyup(function calc() {
             <div style="width: 40%;">freespace</div>
             <div style="width: 30%; text-align: center;">total cost: 00.00</div>
         </div>
-        <div class="row center" >lacks N products from the list</div>
+        <!--div class="row center" >lacks N products from the list</div-->
     </div>
 
 
@@ -205,10 +177,6 @@ $("#input2,#input1").keyup(function calc() {
         }
 
     </script>
-
-
-
-
 
 
 </body>

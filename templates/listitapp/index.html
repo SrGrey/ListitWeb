@@ -2,7 +2,7 @@
 {% block content %}
 
   <div class="wrapper">
- 
+
     <div class="container content">
       <div class="row">
 
@@ -11,28 +11,29 @@
             <p></p>
             <h3>App description</h3>
             <p>Shopping list help you organize your shopping process </p>
+            <h4>Download App (apk)</h4>
+            <p><img src="static/img/qr.png"> </p>
         </div>
 
         <div class="sidebar_container">
 
-            <!--p><b>Sign in</b></p>
-            <p></p>
-                <form action="/shopping_list" method="post">{% csrf_token %}
-                    <p><input type="text" placeholder="username/e-mail" name="username"></p>
-                    <p><input type="password" placeholder="password" name="password"></p>
-                    <p><button type="submit">log in</button></p>
-                </form>
-            </p>
-            <p>autorization is under construction, you may try the public list <a href="/shopping_list"> here</a></p-->
-            <p>        {% if user.is_authenticated %}
+                <p>        {% if user.is_authenticated %}
                 <p>Hello, {{ user }}! </p>
             Now you can access you personal <a href = "shopping_list">shopping list<br></a>
-                or <a href="/accounts/logout">Sign out</a>
+
 
         {% else %}
-                You are not autorized, for access to personal shopping list <a href="/accounts/login"> sign up/sign in</a>
+                You are not autorized, sign in for access to personal shopping list
+                <p>you may use guest credentials for test the app:<br>
+                    <b>Guest<br>
+                    G/123456</b>
+                 </p>
+                <p>
+                    <b><a href="/accounts/login"> sign up/sign in</a></b>
+                </p>
+
         {% endif %}</p>
-        </div>  
+        </div>
 
       </div>
     </div>

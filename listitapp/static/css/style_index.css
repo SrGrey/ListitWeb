@@ -41,6 +41,7 @@ header {
 
 }
 
+
 .b1 {
 
     color: white; /* font color */
@@ -112,8 +113,8 @@ footer p{
 
 .sidebar_container {
     float: right;
-    width: 37%;
-    height: 700px;
+    width: 35%;
+    min-height: 200px;
     padding: 5px;
     margin: 10px 0 0 10px;
     background-color: #fff;
@@ -121,6 +122,7 @@ footer p{
 
 .site-content {
     width: 60%;
+    min-width: 320px
     overflow: hidden;
     margin: 10px 0 0 10px;
 }
