@@ -114,11 +114,11 @@ a:hover {
 }
 
 .category-color-mainlist {
-    color: seagreen;
+    color: teal;/* seagreen; */
 }
 
 .product-color-mainlist {
-    color: dimgrey;
+    color: lightseagreen; /*dimgrey; */
 }
 
 .category-color {
