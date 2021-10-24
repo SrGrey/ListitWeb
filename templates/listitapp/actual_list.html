@@ -23,16 +23,8 @@
     </script>
     <!-- popup1 script -->
 
-    <!--calc script -->
-<script type="text/javascript">
-
-$("#input2,#input1").keyup(function calc() {
-
-    $('#output').val($('#input1').val() * $('#input2').val());
-
-});
-</script>
-    <!--calc script -->
+    <!-- Total cost variable -->
+<script>let total_sum = 0.0; </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -146,6 +138,13 @@ $("#input2,#input1").keyup(function calc() {
 
                                 });
                                 </script>
+                                <script>
+                                     if ("{{ product.product_status }}" == "True") {
+                                        total_sum+={{ product.total_cost }};
+                                        console.log(total_sum);
+
+                                    }
+                                </script>
                             </div>
 
                             <div class="incart center"><a href="modify_product_status/{{ product.id }}">
@@ -174,8 +173,10 @@ $("#input2,#input1").keyup(function calc() {
                 <input id="add_button" type="button" value="Add category" onclick="disp(document.getElementById('show_add_form'))"  style="display: block;">
             </div>
             <div style="width: 40%;"></div>
-            <div style="width: 30%; text-align: center;"><!--total cost: 00.00-->
-
+            <div style="width: 30%; text-align: center;">total cost: <span id="total"></span>
+                <script>
+                document.getElementById("total").innerHTML = total_sum.toFixed(2);
+                </script>
             </div>
         </div>
         <div class="row center" ><!--lacks N products from the list--></div>
