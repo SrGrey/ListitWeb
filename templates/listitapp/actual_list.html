@@ -30,7 +30,7 @@
 
     <title>ListIt</title>
 </head>
-<body>
+<body class="underwater-background">
     <div class="appwidth">
         <div class="row">
             {% if user.is_authenticated %}
@@ -38,8 +38,7 @@
                 <!--div ><b>List of {{ request.user }} </b></div-->
                 <div >
                     <b><a href = "shopping_list">
-                        <button style="color: white;text-decoration: none;border: 2px solid darkseagreen; border-radius: 4px; background: repeating-linear-gradient(
-55deg, darkseagreen, transparent 100px);">
+                        <button class="list-button shadow" >
                             <b>MODIFY ACTUAL LIST</b>
                         </button></a></b>
                 </div>
@@ -49,8 +48,8 @@
             <a href="/login">not worked, login</a>
             {% endif %}
             <div class="listheader container appwidth center">
-                <div class="category" title="Category">Cat</div>
-                <div class="product-name" style="background-color: #7fffD4; ">Product name</div>
+                <div class="category" title="Category"></div>
+                <div class="product-name""></div>
                 <div class="price center">Price </div>
                 <div class="quantity center">Un./packs</div>
                 <div class="total center"> Total</div>
@@ -74,7 +73,7 @@
                     <div style="width: 20%;" >
                         <!-- popup1 window start -->
                         <a href="javascript:PopUpShow({{ item.id }})" style="color:rgb(52, 180, 58); text-decoration: none; padding-right: 20px;">
-                            <button class="green-button"><b>+product</b></button></a>
+                            <button class="green-button">+product</button></a>
                         <div class="b-popup" id="popup{{ item.id }}"  style="display: none;">
                             <div class="b-popup-content">
                                 <form id="create_product" method="POST" action="/listitapp/create_product/{{ item.id }}">{% csrf_token %}
@@ -92,7 +91,7 @@
 
                 {% for product in prods %}
                 {% if item.name|stringformat:"s" == product.category|stringformat:"s" %}
-                    <div class="row listbody row-content" style="background-color: lightgrey">
+                    <div class="row listbody row-content">
                             <div class="category"></div>
                             <div class="center" style="width: 25px"><a href="show_product/{{ product.id }}">{% if product.is_published == True %}<img src="static/img/visible.png" height="15px" width="15px"alt="in list">
                              {% else %}<img src="static/img/novisible.png" height="15px" width="15px"alt="not in list"> {% endif %}</a>
@@ -164,16 +163,16 @@
 
     <div class="appwidth appfooter">
         <div class="row " style="width: 100%; display: flex;">
-            <div style="width: 30%;">
+            <div style="width: 30%; padding: 0 0 0 5px ;">
                 <form id="show_add_form" style="display: none;" method="POST" action="/listitapp/create_category">{% csrf_token %}
-                    <input type="text" value=""  placeholder=" Add new category here" required name="new_category">
+                    <input class="green-button" type="text" value="" placeholder=" Add new category here" required name="new_category">
                     <button type="submit">add</button>
-                    <button type="reset"  onclick="disp(document.getElementById('show_add_form'))">cancel</button>
+                    <button type="reset" onclick="disp(document.getElementById('show_add_form'))">cancel</button>
                 </form>
-                <input id="add_button" type="button" value="Add category" onclick="disp(document.getElementById('show_add_form'))"  style="display: block;">
+                <input id="add_button" class="green-button font-125" type="button" value="Add category" onclick="disp(document.getElementById('show_add_form'))" style="display: block;">
             </div>
-            <div style="width: 40%;"></div>
-            <div style="width: 30%; text-align: center;">total cost: <span id="total"></span>
+            <div style="width: 40%;"><span class="font-150" style="display: flex;  justify-content: right;">total cost:</span></div>
+            <div style="width: 30%; text-align: left;" class="font-150">&nbsp;<span id="total"></span>
                 <script>
                 document.getElementById("total").innerHTML = total_sum.toFixed(2);
                 </script>

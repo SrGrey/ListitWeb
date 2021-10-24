@@ -29,16 +29,16 @@ a:hover {
 .listheader {
     display: flex;
     flex-wrap: nowrap;
-    background-color: aquamarine;
+    background-color:  rgb(33 151 151 / 70%);
     color:teal !important;
     padding: 10px 0px 10px 0px;
-    font-family: 'Acme', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Cuprum', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .listbody {
     display: flex;
     flex-wrap: nowrap;
-    background-color: gainsboro;   
+    background-color: #ffffff66;
     padding: 2px 0px 2px 0px;
     align-items: center;
 }
@@ -47,14 +47,22 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: right;
+    background-color:#ffffff99;
+}
+
+.row-mainlist-poduct {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    background-color:#ffffff99;
 }
 
 .appfooter {
     display: block;
     flex-wrap: nowrap;
     align-content: center;
-    background-color: aquamarine;
-    color:teal !important;
+    background-color: rgb(33 151 151 / 70%);
+    color: #ffffff;
     padding: 5px 0px 5px 0px;
     height: 50px;
 }
@@ -65,12 +73,12 @@ a:hover {
 
 .right {
     text-align: right;
+     justify-content: right;
 }
 
 .left {
     text-align: left;
 }
-
 
 .category {
     width: 5%;
@@ -79,19 +87,18 @@ a:hover {
 .product-name {
     width: 45%;
     text-align: left;
-    background-color: #d8d8d8;
 }
 
 .font-list-content {
     width: 45%;
     text-align: left;
-    background-color: #d8d8d8;
     font-family: 'Cuprum','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
 .font-100 {
     font-size: 100%;
+    font-family: 'Cuprum','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .font-125 {
@@ -105,23 +112,6 @@ a:hover {
 .font-150 {
     font-size: 150%;
 }
-/*
-.category-color {
-    color: maroon;
-}
-
-.product-color {
-    color: dimgrey;
-}
-*/
-
-.category-color {
-    color: mediumseagreen;
-}
-
-.product-color {
-    color: darkslategrey;
-}
 
 .category-color-mainlist {
     color: seagreen;
@@ -129,6 +119,14 @@ a:hover {
 
 .product-color-mainlist {
     color: dimgrey;
+}
+
+.category-color {
+    color: lightseagreen;
+}
+
+.product-color {
+    color: teal;
 }
 
 input {
@@ -139,11 +137,39 @@ input {
 .green-button{
     color: white;
     text-decoration: none;
-    border: 2px solid darkseagreen;
+    border: 2px #48D1CC;
     border-radius: 4px;
-    background: darkseagreen;"
+    background: #48D1CC80;
 }
 
+.reset-button{
+    color: white;
+    text-decoration: none;
+    border: 2px #48D1CC;
+    border-radius: 2px;
+    background: #48D1CC80;
+}
+
+.popup-button{
+    color: #48D1CC;
+    text-decoration: none;
+    border: 2px #48D1CC;
+    border-radius: 4px;
+    background: #ffffff;
+}
+
+.list-button {
+    color: white;
+    border: 2px teal;
+    border-radius: 4px;
+    background: repeating-linear-gradient(
+        55deg, rgb(33 151 151 / 70%), transparent 100px);
+}
+
+.shadow {
+    box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.3); /* Параметры тени */
+    padding: 2px;
+}
 /*.calculate-input {
     border: 1px solid;
     border-radius: 4px 0 0 4px;
@@ -199,4 +225,11 @@ input {
     box-shadow: 0px 0px 10px #000;
     left: 10%;
     top: 10%;
+}
+
+.underwater-background {
+  background: radial-gradient(1.5em 6.28571em at 1.95em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(1.5em 6.28571em at -0.45em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 1.5em 5.5em, radial-gradient(2.3em 4.57143em at 2.99em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(2.3em 4.57143em at -0.69em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 55%, rgba(255, 255, 255, 0) 55%) 2.3em 4em, radial-gradient(3.5em 6.28571em at 4.55em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(3.5em 6.28571em at -1.05em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 3.5em 5.5em, radial-gradient(#15ffa5, #00ced1);
+  background-color: mediumspringgreen;
+  background-size: 1.5em 11em, 1.5em 11em, 2.3em 8em, 2.3em 8em, 3.5em 11em, 3.5em 11em, 100% 100%;
+  background-repeat: repeat;
 }

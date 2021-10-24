@@ -35,7 +35,7 @@ $("#input2,#input1").keyup(function calc() {
 
     <title>ListIt</title>
 </head>
-<body>
+<body class="underwater-background">
     <div class="appwidth" style="max-width: 650px">
         <div class="row">
             {% if user.is_authenticated %}
@@ -43,20 +43,19 @@ $("#input2,#input1").keyup(function calc() {
                 <div><b>Hi, {{ request.user }}! </b></div>
                 <div class="right"> <a href="accounts/logout"><b>logout</b></a></div>
             </div>
-            <div style="color: seagreen; font: seagreen" class="font-125">
+            <div style="color: teal;" class="font-125">
                 <span>It´s the list of ALL categories and products<br>
                     - add/delete your personal categories and products here <br>
                     - include its in actual list clicking on <img src="static/img/novisible.png" height="15px" width="15px"alt="not in list"> icon<br>
                     <span class="font-100"><i>We have prepared some default categories for you, <br>
                         add/restore them to your list, clicking the button</i></span>
                     <form method="POST" action="/add_default_categories">{% csrf_token %}
-                    <button type="submit">+ restore default categories +</button>
+                    <button class="reset-button font-100 shadow" style="" type="submit">restore default categories</button>
                     </form>
                 </p>
 
                 <p><a href = "actual_list">
-                    <button style="color: white;text-decoration: none;border: 2px solid darkseagreen; border-radius: 4px; background: repeating-linear-gradient(
-55deg, darkseagreen, transparent 100px);"><b>OPEN ACTUAL LIST</b>
+                    <button class="list-button shadow"><b>OPEN ACTUAL LIST</b>
                     </button>
                     </a><br></p>
             </div>
@@ -69,7 +68,7 @@ $("#input2,#input1").keyup(function calc() {
 
                 <div class="incart center">Showed in list</div>
                 <div class="category" title="Category"></div>
-                <div class="product-name" style="background-color: #7fffD4; width: 50%;">Product name</div>
+                <div class="product-name">Category and product</div>
                 <div style="width: 5%;" >+/-</div><div style="width: 5%;" > </div>
                 <!--div class="price right">Price</div>
                 <div class="quantity right">Units/packs</div>
@@ -105,11 +104,11 @@ $("#input2,#input1").keyup(function calc() {
                         <div class="b-popup" id="popup{{ item.id }}"  style="display: none;">
                             <div class="b-popup-content">
 
-                             <form id="create_product" method="POST" action="/listitapp/create_product/{{ item.id }}">{% csrf_token %}
+                             <form  id="create_product" method="POST" action="/listitapp/create_product/{{ item.id }}">{% csrf_token %}
                                 <p>Add new product to "{{ item.name|capfirst }}"
-                                 <input type="text" value=""  placeholder=" Add new product here" required name="new_product">
-                                 <button type="submit">add</button>
-                                 <button type="reset" onclick="javascript:PopUpHide('{{ item.id }}')">cancel</button>
+                                 <input  class="popup-button"  type="text" value=""  placeholder=" Add new product here" required name="new_product">
+                                 <button class="popup-button" type="submit">add</button>
+                                 <button class="popup-button" type="reset" onclick="javascript:PopUpHide('{{ item.id }}')">cancel</button>
                                 </p>
                              </form>
 
@@ -122,7 +121,7 @@ $("#input2,#input1").keyup(function calc() {
 
                 {% for product in prods %}
                 {% if item.name|stringformat:"s" == product.category|stringformat:"s" %}
-                    <div class="row listbody" style="background-color: lightgrey">
+                    <div class="row listbody  row-mainlist-poduct">
                             <div  style="width: 10%;  padding: 0 0 0 5px;" ><a href="show_product/{{ product.id }}">{% if product.is_published == True %}<img src="static/img/visible.png" height="15px" width="15px"alt="in list">
                         {% else %}<img src="static/img/novisible.png" height="15px" width="15px"alt="not in list"> {% endif %}</a>
                             </div>
@@ -143,17 +142,17 @@ $("#input2,#input1").keyup(function calc() {
 
     <div class="appwidth appfooter" style="max-width: 650px">
         <div class="row " style="width: 100%; display: flex;">
-            <div style="width: 30%;">
+            <div style="width: 30%; padding: 0 0 0 5px ;">
                 <form id="show_add_form" style="display: none;" method="POST" action="/listitapp/create_category">{% csrf_token %}
                     <input type="text" value=""  placeholder=" Add new category here" required name="new_category">
-                    <button type="submit">add</button>
-                    <button type="reset"  onclick="disp(document.getElementById('show_add_form'))">cancel</button>
+                    <button class="popup-button" type="submit">add</button>
+                    <button class="popup-button" type="reset"  onclick="disp(document.getElementById('show_add_form'))">cancel</button>
                 </form>
                 <!--form method="POST" type="text" name="new_category"-->
-                <input id="add_button" type="button" value="Add category" onclick="disp(document.getElementById('show_add_form'))"  style="display: block;">
+                <input id="add_button" type="button" class="green-button" value="Add personal category" onclick="disp(document.getElementById('show_add_form'))"  style="display: block;">
             </div>
-            <div style="width: 40%;">freespace</div>
-            <div style="width: 30%; text-align: center;">total cost: 00.00</div>
+            <div style="width: 40%;"></div>
+            <div style="width: 30%; text-align: center;"></div>
         </div>
         <!--div class="row center" >lacks N products from the list</div-->
     </div>
