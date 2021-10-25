@@ -1,4 +1,4 @@
 # ListitWeb
-The list of purchases
+Web application - The list of purchases
 
-Build on Django
+Built on Django
