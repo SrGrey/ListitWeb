@@ -82,12 +82,15 @@ def calculate_total(request, pk):
         }
     return JsonResponse(context)
 
-
+@csrf_exempt
 def modify_product_status(request, pk):
     product = Products.objects.get(id=pk)
     product.product_status = not product.product_status
     product.save()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    context = {
+        'product_status': product.product_status
+    }
+    return JsonResponse(context) #HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def delete_category(request, pk):

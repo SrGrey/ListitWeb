@@ -13,7 +13,7 @@ urlpatterns = [
     path('delete_product/<str:pk>', views.delete_product),
     path('create_product/<str:pk>', views.create_product),
     path('modify_product/<str:pk>', views.modify_product),
-    path('modify_product_status/<str:pk>', views.modify_product_status),
+    path('modify_product_status/<str:pk>', views.modify_product_status,  name='modify_product_status'),
     path('shopping_list', views.shopping_list),
     path('actual_list', views.actual_list),
     path('add_default_categories', views.add_default_categories),
