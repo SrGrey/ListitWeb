@@ -126,8 +126,16 @@
                                                 },
                                             success: function (response) {
                                                 total_cost = $.parseJSON(response.total_cost);
+                                                old_total_cost = $.parseJSON(response.old_total_cost);
+                                                product_status = $.parseJSON(response.product_status);
                                                 $('#{{ product.id }}output').val(total_cost);
 
+                                                if (product_status == true) {
+                                                    console.log("WAS >> old_total_cost:", old_total_cost, "total_cost:", total_cost, "total_sum:", total_sum)
+                                                    total_sum = total_sum + total_cost - old_total_cost;
+                                                    console.log("NEW >> old_total_cost:", old_total_cost, "total_cost:", total_cost, "total_sum:", total_sum)
+                                                    document.getElementById("total").innerHTML = total_sum.toFixed(2);
+                                                };
                                                 },
                                             error : function(response){
                                                 console.log(response)
@@ -137,9 +145,13 @@
                                 });
                                 </script>
                                 <script>
+                                    console.log("{{ product.product_status }}")
                                      if ("{{ product.product_status }}" == "True") {
+                                        console.log("WAS >> total_sum:", total_sum, "total_cost:", {{ product.total_cost }}, {{ product.name }})
                                         total_sum+={{ product.total_cost }};
-                                    }
+                                        console.log("NEW >> total_sum:", total_sum, "total_cost:", {{ product.total_cost }}, {{ product.name }})
+                                     document.getElementById("total").innerHTML = total_sum.toFixed(2);
+                                     };
                                 </script>
                             </div>
 
@@ -158,17 +170,19 @@
                                                 },
                                             success: function (response) {
                                                 product_status = $.parseJSON(response.product_status);
+                                                product_total_cost = $.parseJSON(response.total_cost);
+                                                console.log(product_status);
                                                 if (product_status == true)
                                                     {
                                                     console.log("total_sum was", total_sum);
-                                                    console.log({{ product.total_cost }});
-                                                    total_sum+={{ product.total_cost }};
+                                                    console.log(product_total_cost);
+                                                    total_sum+= product_total_cost;
                                                     console.log("total_sum is",total_sum);
                                                     document.getElementById("incart_img{{ product.id }}").src="/static/img/check-yes.png";
                                                     } else
                                                     {
-                                                    total_sum-={{ product.total_cost }};
-                                                    console.log(total_sum);
+                                                    total_sum-=product_total_cost;
+                                                    console.log(total_sum, "script2 menos");
                                                     document.getElementById("incart_img{{ product.id }}").src="/static/img/check-no.png";
                                                     }
                                                 document.getElementById("total").innerHTML = total_sum.toFixed(2);

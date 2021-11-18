@@ -68,19 +68,23 @@ def modify_product(request, pk):
 @csrf_exempt
 def calculate_total(request, pk):
     if request.method == "POST" and request.is_ajax():
-        request_price = float(request.POST.get('price', None))
-        request_quantity = float(request.POST.get('quantity', None))
+        request_price = float(request.POST.get('price', 0))
+        request_quantity = float(request.POST.get('quantity', 0))
         product = Products.objects.get(id=pk)
+        old_total_cost = product.total_cost
         product.price = request_price
         product.quantity = request_quantity
         product.save()
-        print(product.total_cost)
+        print(f"old> {old_total_cost} new> {product.total_cost}")
         context = {
             'price': product.price,
             'quantity': product.quantity,
-            'total_cost': product.total_cost
+            'total_cost': product.total_cost,
+            'old_total_cost': old_total_cost,
+            'product_status': product.product_status,
         }
     return JsonResponse(context)
+
 
 @csrf_exempt
 def modify_product_status(request, pk):
@@ -88,9 +92,10 @@ def modify_product_status(request, pk):
     product.product_status = not product.product_status
     product.save()
     context = {
-        'product_status': product.product_status
+        'product_status': product.product_status,
+        'total_cost': product.total_cost,
     }
-    return JsonResponse(context) #HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return JsonResponse(context)
 
 
 def delete_category(request, pk):
