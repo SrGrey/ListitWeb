@@ -1,51 +1,66 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <div class="wrapper">
+    <div class="wrapper">
 
     <div class="container content">
-      <div class="row">
-
-        <div class="site-content">
-            <h1>Shopping list</h1>
+        <div class="row">
             <p></p>
-            <h3>App description</h3>
-            <p>Shopping list help you organize your shopping process </p>
-            <h4>Download App (apk)</h4>
-            <p><img src="static/img/qr.png"> </p>
         </div>
 
-        <div class="sidebar_container">
+        <div class="row">
 
-                <p>        {% if user.is_authenticated %}
-                <p>Hello, {{ user }}! </p>
-            Now you can access you personal <a href = "shopping_list">shopping list<br></a>
+            <div class="col-md-7"> <!--site-content-->
+                <h1>Shopping list</h1>
+                <p></p>
+                <h3>App description</h3>
+                <p>Shopping list help you organize your shopping process </p>
+                <p>Use default categories, add new ones, add products, hide and do it visible</p>
+                <p>This app will calculate the <b>Total</b> and <b>Total cost</b> if items marked as <b>In cart</b></p>
+                <p class="inner" style="margin: 5px 5px 5px 5px; text-align: center"><img src="static/img/AppOnPhone.png" width="200px"></p>
+            </div>
 
+            <div class="col-md-1" > <!--site-content-->
+                <p></p>
+            </div>
 
-        {% else %}
-                You are not autorized, sign in for access to personal shopping list
-                <p>you may use guest credentials for test the app:<br>
-                    <b>Guest<br>
-                    G/123456</b>
-                 </p>
-                <p>
-                    <b><a href="/accounts/login"> sign up/sign in</a></b>
+            <div class="col-md-4 d-md-block sidebar_container"> <!-- sidebar_container"-->
+                <p class="inner">
+                    <span>
+                        {% if user.is_authenticated %}
+                            <span>Hello, {{ user }}! </span><br><br>
+                            Now you can access you personal <a href = "shopping_list">shopping list<br></a>
+                        {% else %}
+                            You are not autorized, sign in for access to personal shopping list<br><br>
+                            Or you may use guest credentials for test the app:<br>
+                                <b>Guest<br>
+                                G/123456</b>
+                            </span>
+                        <br><br>
+                            <b><a href="/accounts/login"> sign up/sign in</a></b><br><br>
+                        {% endif %}
+                    </span>
                 </p>
-
-        {% endif %}</p>
+            </div>
         </div>
 
-      </div>
+        <div class="row">
+            <div class="col-md-7">
+                <p><br><a href="static/files/Note_n_Shop.apk">Download App (.apk)</a></p>
+                <p style="margin: 5px 5px 5px 5px; text-align: center"><img src="static/img/qr.png"> </p>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <footer>
+    </div>
 
-      <div class="container">
-          <p class="text-center"> Copyright &copy;SrGrey</p>
-          <p class="text-center">2021</p>
-      </div>
+    <footer>
 
-  </footer>
+        <div class="container">
+            <p class="text-center"> Copyright &copy;SrGrey</p>
+            <p class="text-center">2021</p>
+        </div>
+
+    </footer>
 
 {% endblock %}

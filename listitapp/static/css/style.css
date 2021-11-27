@@ -151,7 +151,7 @@ input {
 }
 
 .popup-button{
-    color: #48D1CC;
+    /*color: #48D1CC;*/
     text-decoration: none;
     border: 2px #48D1CC;
     border-radius: 4px;
